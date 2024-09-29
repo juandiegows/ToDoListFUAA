@@ -45,9 +45,42 @@
                     </g>
                 </svg>
             </span>
-            <input type="text" value="{{ $listTask->name }}" readonly class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
+            @if (isset($dataUpdate['id']) && $dataUpdate['id'] ==$listTask->id )
+            <input type="text" wire:model="dataUpdate.name" id="{{ $key }}"  wire:keydown.enter="save"  class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
+            @else
+            <input type="text"  id="nuevo_{{ $key }}" value="{{ $listTask->name }}" readonly class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
+            @endif
 
-            <span title="Clic para editar" class="inline-flex items-center hover:cursor-pointer box-border px-3 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 border rounded-s-0 border-gray-300 border-s-0  dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+            @if (isset($dataUpdate['id']) )
+            @if ($dataUpdate['id'] ==$listTask->id )
+            <span class="inline-flex items-center hover:cursor-pointer box-border px-3 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 border rounded-s-0 border-gray-300 border-s-0  dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600" wire:click="cancelEdit">
+
+                <svg class="w-4 h-4 hover:scale-75 text-gray-500 dark:text-gray-400" fill="#ff0505" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 460.775 460.775" xml:space="preserve" stroke="#ff0505">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"></path>
+                    </g>
+                </svg>
+            </span>
+
+            <span class="inline-flex items-center hover:cursor-pointer box-border px-3 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 border rounded-s-0 border-gray-300 border-s-0  dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600" wire:click="save">
+
+                <svg class="w-8 h-8 hover:scale-75 text-gray-500 dark:text-gray-400" fill="#39990f" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" xml:space="preserve" stroke="#39990f">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <g>
+                            <g>
+                                <path d="M42.6,71c-1.2,0-2.4-0.5-3.3-1.4L20.6,50.9c-0.8-0.8-0.8-2,0-2.8l3.7-3.7c0.8-0.8,2-0.8,2.8,0l15.5,15.4 l30.3-30.3c0.8-0.8,2-0.8,2.8,0l3.7,3.7c0.8,0.8,0.8,2,0,2.8L45.8,69.6C44.9,70.5,43.8,71,42.6,71z"></path>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </span>
+            @endif
+            @else
+            <span title="Clic para editar" wire:click="setEdit({{ $listTask }})" class="inline-flex items-center hover:cursor-pointer box-border px-3 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 border rounded-s-0 border-gray-300 border-s-0  dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                 <svg class="w-6 h-6 hover:scale-75 text-gray-500 dark:text-gray-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ededed">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -85,7 +118,10 @@
                 </svg>
 
             </span>
+            @endif
+
         </div>
+        <x-input-error for="dataUpdate.name" />
         @endforeach
     </div>
 

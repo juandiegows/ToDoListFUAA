@@ -11,13 +11,8 @@ class ListTaskComponent extends Component
     use WithPagination;
 
     public $data = [];
-    protected $rules = [
-        'data.name' => 'required',
-    ];
+    public $dataUpdate = [];
 
-    protected $messages = [
-        'data.name.required' => 'El nombre de la lista es obligatorio.',
-    ];
 
     public function render()
     {
@@ -33,12 +28,36 @@ class ListTaskComponent extends Component
         return ListTask::paginate(10);
     }
 
+
+    public function setEdit(ListTask $list)
+    {
+        $this->dataUpdate  = $list->toArray();
+    }
+
+    public function cancelEdit()
+    {
+        flash()->error('Se ha cancelado la edicion');
+        $this->reset( 'dataUpdate');
+        $this->render();
+    }
+
     public function save()
     {
-        $this->validate();
-        $data = new ListTask($this->data);
+        $message = 'Se ha creado la nueva lista';
+ 
+        if (isset($this->dataUpdate['id'])) {
+            $this->validate([ 'dataUpdate.name' => 'required'], [ 'dataUpdate.name.required' => 'El nombre de la lista es obligatorio.']);
+            $message = 'Se ha actualizado la nueva lista';
+            $data = ListTask::find($this->dataUpdate['id']);
+            $data->fill($this->dataUpdate);
+        } else {
+            $this->validate([ 'data.name' => 'required'], [ 'data.name.required' => 'El nombre de la lista es obligatorio.']);
+            $data = new ListTask($this->data);
+        }
+
         $data->save();
-        flash()->success('Se ha creado la nueva lista');
-        $this->reset('data');
+        flash()->success($message);
+        $this->reset('data', 'dataUpdate');
+       
     }
 }
