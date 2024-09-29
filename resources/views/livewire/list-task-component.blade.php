@@ -35,6 +35,47 @@
 
     <div class="mt-4">
         @foreach ($listTasks as $key => $listTask)
+        @if (isset($dataDelete['id']) && $dataDelete['id'] ==$listTask->id )
+        <div class="flex mt-2">
+            <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="#ffffff" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M 42.6235 45.0027 L 43.9237 45.0027 C 48.4638 45.0027 50.7337 42.6887 50.7337 38.0826 L 50.7337 6.9201 C 50.7337 2.3141 48.4638 0 43.9237 0 L 22.6345 0 C 18.0945 0 15.8025 2.3141 15.8025 6.9201 L 15.8025 8.0000 L 18.6675 8.0000 C 21.7750 8.0000 24.2653 8.8815 26.7336 11.3499 L 39.2295 23.8898 C 41.7199 26.3802 42.6235 28.9366 42.6235 31.9339 Z M 27.9017 7.7796 C 26.9320 7.7796 26.4912 7.1405 26.4912 6.4794 L 26.4912 6.0165 C 26.4912 5.3333 26.9320 4.7162 27.9017 4.7162 L 38.6565 4.7162 C 39.6042 4.7162 40.0670 5.3333 40.0670 6.0165 L 40.0670 6.4794 C 40.0670 7.1405 39.6042 7.7796 38.6565 7.7796 Z M 11.5050 56 L 32.7943 56 C 37.3342 56 39.6262 53.6859 39.6262 49.0799 L 39.6262 31.3388 L 23.6703 31.3388 C 20.8273 31.3388 19.5050 29.9945 19.5050 27.1736 L 19.5050 10.9972 L 11.5050 10.9972 C 6.9651 10.9972 4.6731 13.3113 4.6731 17.9174 L 4.6731 49.0799 C 4.6731 53.7080 6.9651 56 11.5050 56 Z M 23.6483 28.3195 L 38.4582 28.3195 C 38.2378 27.4600 37.6427 26.6666 36.6510 25.6529 L 25.1910 13.9945 C 24.2213 13.0028 23.3617 12.4077 22.5243 12.1653 L 22.5243 27.1956 C 22.5243 27.9449 22.8989 28.3195 23.6483 28.3195 Z"></path>
+                    </g>
+                </svg>
+            </span>
+            <label class="rounded-none  bg-red-600 border text-white focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white font-extrabold dark:focus:ring-blue-500 dark:focus:border-blue-500">¿Deseas eliminar esta lista -> {{ $dataDelete['name'] }}?</label>
+
+            <span class="inline-flex items-center hover:cursor-pointer box-border px-3 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 border rounded-s-0 border-gray-300 border-s-0  dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600" wire:click="cancelDelete" title="Cancelar eliminacion">
+
+                <svg class="w-4 h-4 hover:scale-75 text-gray-500 dark:text-gray-400" fill="#ff0505" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 460.775 460.775" xml:space="preserve" stroke="#ff0505">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"></path>
+                    </g>
+                </svg>
+            </span>
+
+            <span class="inline-flex items-center hover:cursor-pointer box-border px-3 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 border rounded-s-0 border-gray-300 border-s-0  dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600" wire:click="destroy">
+
+                <svg class="w-8 h-8 hover:scale-75 text-gray-500 dark:text-gray-400" fill="#39990f" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" xml:space="preserve" stroke="#39990f">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <g>
+                            <g>
+                                <path d="M42.6,71c-1.2,0-2.4-0.5-3.3-1.4L20.6,50.9c-0.8-0.8-0.8-2,0-2.8l3.7-3.7c0.8-0.8,2-0.8,2.8,0l15.5,15.4 l30.3-30.3c0.8-0.8,2-0.8,2.8,0l3.7,3.7c0.8,0.8,0.8,2,0,2.8L45.8,69.6C44.9,70.5,43.8,71,42.6,71z"></path>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </span>
+        </div>
+
+        @else
         <div class="flex mt-2">
             <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="#ffffff" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
@@ -46,9 +87,9 @@
                 </svg>
             </span>
             @if (isset($dataUpdate['id']) && $dataUpdate['id'] ==$listTask->id )
-            <input type="text" wire:model="dataUpdate.name" id="{{ $key }}"  wire:keydown.enter="save"  class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
+            <input type="text" wire:model="dataUpdate.name" id="{{ $key }}" wire:keydown.enter="save" class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
             @else
-            <input type="text"  id="nuevo_{{ $key }}" value="{{ $listTask->name }}" readonly class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
+            <input type="text" id="nuevo_{{ $key }}" value="{{ $listTask->name }}" readonly class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
             @endif
 
             @if (isset($dataUpdate['id']) )
@@ -90,7 +131,7 @@
                 </svg>
             </span>
 
-            <span title="clic para eliminar la lista" class="inline-flex items-center hover:cursor-pointer box-border px-3 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 border rounded-s-0 border-gray-300 border-s-0  dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+            <span title="clic para eliminar la lista" class="inline-flex items-center hover:cursor-pointer box-border px-3 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 border rounded-s-0 border-gray-300 border-s-0  dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600" wire:click="setDelete({{ $listTask }})">
                 <svg class="w-6 h-6 hover:scale-75 text-gray-500 dark:text-gray-400" fill="#d30303" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 456.686 456.686" xml:space="preserve" stroke="#d30303">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -121,6 +162,8 @@
             @endif
 
         </div>
+        @endif
+
         <x-input-error for="dataUpdate.name" />
         @endforeach
     </div>

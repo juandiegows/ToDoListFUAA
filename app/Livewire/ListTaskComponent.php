@@ -12,6 +12,7 @@ class ListTaskComponent extends Component
 
     public $data = [];
     public $dataUpdate = [];
+    public $dataDelete = [];
 
 
     public function render()
@@ -34,11 +35,31 @@ class ListTaskComponent extends Component
         $this->dataUpdate  = $list->toArray();
     }
 
+    public function setDelete(ListTask $list)
+    {
+        $this->dataDelete  = $list->toArray();
+    }
+
     public function cancelEdit()
     {
         flash()->error('Se ha cancelado la edicion');
         $this->reset( 'dataUpdate');
-        $this->render();
+    }
+
+
+    public function cancelDelete()
+    {
+        flash()->error('Se ha cancelado la eliminacion');
+        $this->reset( 'dataDelete');
+    }
+
+    
+    public function destroy()
+    {
+        $data = ListTask::find($this->dataDelete['id']);
+        $data->delete();
+        flash()->success('Se ha  eliminado la lista '.$this->dataDelete['name']);
+        $this->reset( 'dataDelete');
     }
 
     public function save()
