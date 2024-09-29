@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/', action: function () {
     return redirect('dashboard');
 });
+
 
 Route::middleware([
     'auth:sanctum',
@@ -14,4 +15,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/list/{idName}', function ($idName) {
+        $parts = explode('-', $idName);
+        $id = array_shift($parts);
+    
+        return view('task',  compact('id'));
+    })->name('task.show');
 });

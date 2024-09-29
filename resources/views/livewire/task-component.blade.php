@@ -1,4 +1,23 @@
 <div>
+    <x-slot name="header">
+        <div class="flex gap-4 align-middle items-center">
+            <a href="{{ route('dashboard') }}" class=" flex gap-2  px-4 py-2 align-middle items-center bg-blue-500 text-white rounded hover:bg-blue-600">
+                <svg class="w-8 h-8" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path fill="#ffffff" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path>
+                        <path fill="#ffffff" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"></path>
+                    </g>
+                </svg></a>
+
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight items-center">
+                {{ $listTask->name }}
+            </h2>
+        </div>
+
+    </x-slot>
+
     <div class="flex">
         <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="#ffffff" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
@@ -9,7 +28,7 @@
                 </g>
             </svg>
         </span>
-        <input type="text" wire:model="data.name" wire:keydown.enter="save" class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
+        <input type="text" wire:model="data.name" wire:keydown.enter="save" class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la tarea">
         <span class="inline-flex items-center hover:cursor-pointer box-border px-3 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 border rounded-s-0 border-gray-300 border-s-0  dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600" wire:click="save">
 
             <svg class="w-8 h-8 hover:scale-75 text-gray-500 dark:text-gray-400" fill="#39990f" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" xml:space="preserve" stroke="#39990f">
@@ -27,14 +46,15 @@
     </div>
     <x-input-error for="data.name" />
 
-    <h2 class="text-white text-2xl mt-4">Listas</h2>
+    <h2 class="text-white text-2xl mt-4">Tareas</h2>
+
 
     <div>
-        {{ $listTasks->links() }}
+        {{ $tasks->links() }}
     </div>
 
     <div class="mt-4">
-        @foreach ($listTasks as $key => $listTask)
+        @foreach ($tasks as $key => $listTask)
         @php
         $idName = $listTask['id'] . '-' . str_replace(' ', '-', $listTask['name']);
         @endphp
@@ -80,19 +100,35 @@
 
         @else
         <div class="flex mt-2">
-            <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="#ffffff" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path d="M 42.6235 45.0027 L 43.9237 45.0027 C 48.4638 45.0027 50.7337 42.6887 50.7337 38.0826 L 50.7337 6.9201 C 50.7337 2.3141 48.4638 0 43.9237 0 L 22.6345 0 C 18.0945 0 15.8025 2.3141 15.8025 6.9201 L 15.8025 8.0000 L 18.6675 8.0000 C 21.7750 8.0000 24.2653 8.8815 26.7336 11.3499 L 39.2295 23.8898 C 41.7199 26.3802 42.6235 28.9366 42.6235 31.9339 Z M 27.9017 7.7796 C 26.9320 7.7796 26.4912 7.1405 26.4912 6.4794 L 26.4912 6.0165 C 26.4912 5.3333 26.9320 4.7162 27.9017 4.7162 L 38.6565 4.7162 C 39.6042 4.7162 40.0670 5.3333 40.0670 6.0165 L 40.0670 6.4794 C 40.0670 7.1405 39.6042 7.7796 38.6565 7.7796 Z M 11.5050 56 L 32.7943 56 C 37.3342 56 39.6262 53.6859 39.6262 49.0799 L 39.6262 31.3388 L 23.6703 31.3388 C 20.8273 31.3388 19.5050 29.9945 19.5050 27.1736 L 19.5050 10.9972 L 11.5050 10.9972 C 6.9651 10.9972 4.6731 13.3113 4.6731 17.9174 L 4.6731 49.0799 C 4.6731 53.7080 6.9651 56 11.5050 56 Z M 23.6483 28.3195 L 38.4582 28.3195 C 38.2378 27.4600 37.6427 26.6666 36.6510 25.6529 L 25.1910 13.9945 C 24.2213 13.0028 23.3617 12.4077 22.5243 12.1653 L 22.5243 27.1956 C 22.5243 27.9449 22.8989 28.3195 23.6483 28.3195 Z"></path>
-                    </g>
-                </svg>
-            </span>
+
+            @if ($listTask->is_complete)
+            <div class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <label class="relative flex cursor-pointer items-center rounded-full p-3" for="checkbox-2" data-ripple-dark="true">
+                    <input checked type="checkbox" class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-red-500 checked:bg-red-500 checked:before:bg-red-500 hover:before:opacity-10" wire:change="toggleCompletion({{ $listTask['id'] }})" />
+                    <div class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                </label>
+            </div>
+            @else
+            <div class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <label class="relative flex cursor-pointer items-center rounded-full p-3" for="checkbox-2" data-ripple-dark="true">
+                    <input type="checkbox" class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-red-500 checked:bg-red-500 checked:before:bg-red-500 hover:before:opacity-10" wire:change="toggleCompletion({{ $listTask['id'] }})"  />
+                    <div class="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                </label>
+            </div>
+            @endif
+
             @if (isset($dataUpdate['id']) && $dataUpdate['id'] ==$listTask->id )
             <input type="text" wire:model="dataUpdate.name" id="{{ $key }}" wire:keydown.enter="save" class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
             @else
-            <input type="text" id="nuevo_{{ $key }}" value="{{ $listTask->name }}" readonly class="rounded-none  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
+            <input type="text" id="nuevo_{{ $key }}" value="{{ $listTask->name }}" readonly class="rounded-none {{  $listTask->is_complete ? ' line-through ': ''}}  bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese el nombre de la lista">
             @endif
 
             @if (isset($dataUpdate['id']) )
@@ -152,16 +188,6 @@
 
             </span>
 
-            <a title="Ver las tareas de la lista" href="{{ route('task.show', ['idName' => $idName]) }}" class="inline-flex items-center hover:cursor-pointer box-border px-3 text-sm text-gray-900 bg-gray-200 hover:bg-gray-300 border rounded-s-0 border-gray-300 border-s-0  dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg class="w-8 h-8  text-gray-500 dark:text-gray-400" fill="#ffffff" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 92 92" enable-background="new 0 0 92 92" xml:space="preserve" stroke="#ffffff">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path id="XMLID_512_" d="M82.8,48.8l-24.9,25c-0.8,0.8-1.8,1.2-2.8,1.2c-1,0-2-0.4-2.8-1.2c-1.6-1.6-1.6-4.1,0-5.7L70.4,50H12 c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4h58.4L52.2,23.8c-1.6-1.6-1.6-4.1,0-5.7c1.6-1.6,4.1-1.6,5.7,0l24.9,25 C84.4,44.7,84.4,47.3,82.8,48.8z"></path>
-                    </g>
-                </svg>
-
-            </a>
             @endif
 
         </div>
@@ -172,6 +198,6 @@
     </div>
 
     <div class="mt-2">
-        {{ $listTasks->links() }}
+        {{ $tasks->links() }}
     </div>
 </div>
