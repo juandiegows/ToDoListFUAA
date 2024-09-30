@@ -11,8 +11,9 @@
                 {{ $value }}
             </div>
         @endsession
-
-        <form method="POST" action="{{ route('login') }}">
+        <h3 class="my-8">Para poder probar el aplicativo el usuario y contraseña son admin@juandiegows.com y password</h3>
+              
+        <form method="POST" class="mt-4" action="{{ route('login') }}">
             @csrf
 
             <div>
