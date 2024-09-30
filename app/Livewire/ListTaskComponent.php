@@ -26,7 +26,7 @@ class ListTaskComponent extends Component
 
     public function getListTask()
     {
-        return ListTask::paginate(10);
+        return ListTask::where('created_by', auth()->user()->id)->paginate(10);
     }
 
 
