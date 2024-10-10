@@ -1,4 +1,4 @@
-<div>
+<div class="w-[90vw] md:w-full m-auto">
     <div class="flex">
         <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="#ffffff" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">

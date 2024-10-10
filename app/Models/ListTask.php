@@ -27,4 +27,8 @@ class ListTask extends Model
             }
         });
     }
+
+    public function tasks(){
+        return $this->hasMany(Task::class);
+    }
 }

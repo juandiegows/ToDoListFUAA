@@ -1,4 +1,4 @@
-<div>
+<div class="w-[90vw] md:w-full  m-auto">
     <x-slot name="header">
         <div class="flex gap-4 align-middle items-center">
             <a href="{{ route('dashboard') }}" class=" flex gap-2  px-4 py-2 align-middle items-center bg-blue-500 text-white rounded hover:bg-blue-600">

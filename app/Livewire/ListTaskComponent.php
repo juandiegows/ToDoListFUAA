@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\ListTask;
+use App\Models\Task;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -57,6 +58,7 @@ class ListTaskComponent extends Component
     public function destroy()
     {
         $data = ListTask::find($this->dataDelete['id']);
+        Task::whereIn('id', $data->tasks->pluck('id'))->delete();
         $data->delete();
         flash()->success('Se ha  eliminado la lista '.$this->dataDelete['name']);
         $this->reset( 'dataDelete');
